@@ -1,0 +1,33 @@
+[Go]: https://go.dev/
+[GoLanguageLand]: https://jetbrains.com/go/
+[Fleet]: https://jetbrains.com/fleet/
+[VSCode]: https://code.visualstudio.com/docs
+
+[![Go Workflow](https://github.com/HyaenaTechnologies/local_workflow/actions/workflows/go.yml/badge.svg)](https://github.com/HyaenaTechnologies/local_workflow/actions/workflows/go.yml)
+
+# Local Workflow
+
+Local Workflow is an Open Source Local Workflow Engine
+
+## Local Workflows
+
+- Dart 
+- Flutter 
+- Go
+
+## Build
+
+- [Go Language][Go]
+- [GoLand][GoLanguageLand]
+- [JetBrains Fleet][Fleet] 
+- [Visual Studio Code][VSCode]
+
+```shell
+go build
+```
+
+## Install
+
+```shell
+echo 'export PATH="$PATH:/usr/lib/htwork"' >> ~/.profile
+```

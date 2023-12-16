@@ -1,0 +1,12 @@
+{
+    "configurations": [
+        {
+            "type": "go",
+            "name": "workflow_engine",
+            "goExecPath": "/usr/bin/go/bin/go",
+            "buildParams": [
+                "$USER_HOME$/FleetProjects/workflow_engine/lib/main.go"
+            ]
+        }
+    ]
+}
