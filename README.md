@@ -7,7 +7,7 @@
 
 # Local Workflow
 
-Local Workflow is an Open Source Local Workflow Engine
+Local Workflow is an Open Source Local Workflow Tool
 
 ## Local Workflows
 
