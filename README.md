@@ -1,5 +1,5 @@
 [Go]: https://go.dev/
-[GoLand]: https://jetbrains.com/go/
+[GoLandIDE]: https://jetbrains.com/go/
 [Fleet]: https://jetbrains.com/fleet/
 [VSCode]: https://code.visualstudio.com/docs
 
@@ -18,7 +18,7 @@ Local Workflow is an Open Source Local Workflow Tool
 ## Build
 
 - [Go Language][Go]
-- [Go Land][GoLand]
+- [GoLand][GoLandIDE]
 - [JetBrains Fleet][Fleet] 
 - [Visual Studio Code][VSCode]
 
