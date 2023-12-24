@@ -21,7 +21,7 @@ var (
 	dartCommandError = dartCommand.Parse(os.Args[2:])
 	dartCompileFlag  = dartCommand.String(
 		"compile",
-		"",
+		"/bin/dart_application",
 		"Compile Package: --compile Path: <String>")
 	dartDocFlag = dartCommand.Bool(
 		"doc",

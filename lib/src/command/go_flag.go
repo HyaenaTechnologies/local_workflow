@@ -15,7 +15,7 @@ var (
 	goDarwinARM64Build  = "GOOS=darwin GOARCH=arm64 go build -o"
 	goLinuxAMD64Buid    = "GOOS=linux GOARCH=amd64 go build -o"
 	goLinuxARM64Buid    = "GOOS=linux GOARCH=arm64 go build -o"
-	goRunTest           = "go test -v ./test"
+	goRunTest           = "go test -v"
 	goWindowsAMD64Build = "GOOS=windows GOARCH=amd64 go build -o"
 	goWindowsARM64Build = "GOOS=windows GOARCH=arm64 go build -o"
 )
@@ -38,7 +38,7 @@ var (
 		"Continuous Integration: --integration <Bool>")
 	goTestFlag = goCommand.String(
 		"test",
-		"",
+		"go test -v ./test",
 		"Run Test: --test Path: <String>")
 )
 
