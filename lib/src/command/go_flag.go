@@ -38,7 +38,7 @@ var (
 		"Continuous Integration: --integration <Bool>")
 	goTestFlag = goCommand.String(
 		"test",
-		"go test -v ./test",
+		"./test",
 		"Run Test: --test Path: <String>")
 )
 
