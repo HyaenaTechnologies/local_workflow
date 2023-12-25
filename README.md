@@ -1,6 +1,6 @@
+[Fleet]: https://jetbrains.com/fleet/
 [Go]: https://go.dev/
 [GoLandIDE]: https://jetbrains.com/go/
-[Fleet]: https://jetbrains.com/fleet/
 [VSCode]: https://code.visualstudio.com/docs
 
 [![Go Workflow](https://github.com/HyaenaTechnologies/local_workflow/actions/workflows/go.yml/badge.svg)](https://github.com/HyaenaTechnologies/local_workflow/actions/workflows/go.yml)
