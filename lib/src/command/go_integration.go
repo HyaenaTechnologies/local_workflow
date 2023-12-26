@@ -1,45 +1,9 @@
 package command
 
 import (
-	"flag"
 	"fmt"
-	"local_workflow/lib/src/integration"
 	"log"
-	"os"
 	"os/exec"
-)
-
-// Go Command Strings
-var (
-	goDarwinAMD64Build  = "GOOS=darwin GOARCH=amd64 go build -o"
-	goDarwinARM64Build  = "GOOS=darwin GOARCH=arm64 go build -o"
-	goLinuxAMD64Buid    = "GOOS=linux GOARCH=amd64 go build -o"
-	goLinuxARM64Buid    = "GOOS=linux GOARCH=arm64 go build -o"
-	goRunTest           = "go test -v"
-	goWindowsAMD64Build = "GOOS=windows GOARCH=amd64 go build -o"
-	goWindowsARM64Build = "GOOS=windows GOARCH=arm64 go build -o"
-)
-
-// Go Commands and Flags
-var (
-	goCommand      = flag.NewFlagSet("go", flag.ExitOnError)
-	goCommandError = goCommand.Parse(os.Args[2:])
-	goBuildFlag    = goCommand.String(
-		"build",
-		"",
-		"Build Package: --build Path: <String>")
-	goDocFlag = goCommand.Bool(
-		"doc",
-		false,
-		"Document Package: --doc <Bool>")
-	goIntegrationFlag = goCommand.Bool(
-		"integration",
-		false,
-		"Continuous Integration: --integration <Bool>")
-	goTestFlag = goCommand.String(
-		"test",
-		"./test",
-		"Run Test: --test Path: <String>")
 )
 
 // Build Package Darwin AMD64
@@ -108,6 +72,16 @@ func GoBuildWindowsARM64() {
 	fmt.Print(goWindowsARM64)
 }
 
+// Document Package
+func GoDoc() {
+	var goDoc, goDocError = exec.Command(
+		goDocument).Output()
+	if goDocError != nil {
+		log.Fatal(goDocError)
+	}
+	fmt.Print(goDoc)
+}
+
 // Go Command Flag Execution
 func GoFlagExecute() {
 	if *goBuildFlag != "" {
@@ -119,25 +93,23 @@ func GoFlagExecute() {
 		GoBuildWindowsARM64()
 	}
 	if *goIntegrationFlag == true {
-		integration.GoEnv()
-		integration.GoFix()
-		integration.GoFmt()
-		integration.GoList()
-		integration.GoListModules()
-		integration.GoModDownload()
-		integration.GoModGraph()
-		integration.GoModVerify()
-		integration.GoVersion()
-		integration.GoVet()
-		integration.GoWorkSynchronize()
-		integration.GoWorkUse()
+		GoIntegration()
 	}
 	if *goDocFlag == true {
-		integration.GoDoc()
+		GoDoc()
 	}
-	if *goTestFlag != "" {
+	if *goTestFlag != "./test" {
 		GoTest()
 	}
+}
+
+func GoIntegration() {
+	var goIntegrate, goIntegrateError = exec.Command(
+		goIntegration).Output()
+	if goIntegrateError != nil {
+		log.Fatal(goIntegrateError)
+	}
+	fmt.Print(goIntegrate)
 }
 
 // Run Test

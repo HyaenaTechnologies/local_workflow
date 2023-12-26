@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-// Command Flag Validation
+// Command and Flag Validation
 func FlagValidation() {
 	if dartCommandError != nil {
 		log.Fatal(dartCommandError)

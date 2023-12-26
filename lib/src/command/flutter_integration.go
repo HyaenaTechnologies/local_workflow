@@ -1,42 +1,9 @@
 package command
 
 import (
-	"flag"
 	"fmt"
-	"local_workflow/lib/src/integration"
 	"log"
-	"os"
 	"os/exec"
-)
-
-// Flutter Command Strings
-var (
-	flutterAPKBuild   = "flutter build apk lib/main.dart"
-	flutterLinuxBuild = "flutter build linux lib/main.dart"
-	flutterRunTest    = "flutter test"
-	flutterWebBuid    = "flutter build web lib/main.dart"
-)
-
-// Flutter Commands and Flags
-var (
-	flutterCommand      = flag.NewFlagSet("flutter", flag.ExitOnError)
-	flutterCommandError = flutterCommand.Parse(os.Args[2:])
-	flutterBuildFlag    = flutterCommand.String(
-		"build",
-		"",
-		"Build Package: --build Path: <String>")
-	flutterDocFlag = flutterCommand.Bool(
-		"doc",
-		false,
-		"Document Package: --doc <Bool>")
-	flutterIntegrationFlag = flutterCommand.Bool(
-		"integration",
-		false,
-		"Continuous Integration: --integration <Bool>")
-	flutterTestFlag = flutterCommand.String(
-		"test",
-		"",
-		"Run Test: --test Path: <String>")
 )
 
 // Build Package APK
@@ -74,27 +41,29 @@ func FlutterBuildWeb() {
 
 // Flutter Command Flag Execution
 func FlutterFlagExecute() {
-	if *flutterBuildFlag != "" {
+	if *flutterBuildFlag != "/bin/flutter_application" {
 		FlutterBuildAPK()
 		FlutterBuildLinux()
 		FlutterBuildWeb()
 	}
 	if *flutterIntegrationFlag == true {
-		integration.FlutterAnalyze()
-		integration.FlutterDoctor()
-		integration.DartFixDryRun()
-		integration.DartFixApply()
-		integration.DartFormat()
-		integration.DartInfo()
-		integration.FlutterPubDeps()
-		integration.FlutterPubUpgrade()
+		FlutterIntegration()
 	}
 	if *flutterDocFlag == true {
-		integration.DartDoc()
+		DartDoc()
 	}
-	if *flutterTestFlag != "" {
+	if *flutterTestFlag != "." {
 		FlutterTest()
 	}
+}
+
+func FlutterIntegration() {
+	var flutterIntegrate, flutterIntegrateError = exec.Command(
+		flutterIntegration).Output()
+	if flutterIntegrateError != nil {
+		log.Fatal(flutterIntegrateError)
+	}
+	fmt.Print(flutterIntegrate)
 }
 
 // Run Test
