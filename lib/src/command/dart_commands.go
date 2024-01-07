@@ -13,35 +13,50 @@ var (
 	dartCompileFlag  = dartCommand.String(
 		"compile",
 		"/bin/dart_application",
-		"Compile Package: --compile Path: <String>")
+		"Compile Package: --compile Path: <String>",
+	)
 	dartDocFlag = dartCommand.Bool(
 		"doc",
 		false,
-		"Document Package: --doc <Bool>")
+		"Document Package: --doc <Bool>",
+	)
 	dartIntegrationFlag = dartCommand.Bool(
 		"integration",
 		false,
-		"Continuous Integration: --integration <Bool>")
+		"Continuous Integration: --integration <Bool>",
+	)
 	dartTestFlag = dartCommand.String(
 		"test",
 		".",
-		"Run Test: --test Path: <String>")
+		"Run Test: --test Path: <String>",
+	)
 )
 
 // Dart Command Strings
 var (
-	dartCompileBuild = "dart compile exe lib/main.dart --output"
-	dartDocument     = "dart doc ."
-	dartRunTest      = "dart test"
-	dartIntegration  = strings.Join(dartIntegrateCommands, " && ")
+	dartCompileBuild = DartCommands{
+		build: "dart compile exe lib/main.dart --output",
+	}
+	dartDocument = DartCommands{
+		document: "dart doc .",
+	}
+	dartRunTest = DartCommands{
+		test: "dart test",
+	}
+	dartIntegration = strings.Join(
+		dartIntegrateCommands.integrate,
+		" && ",
+	)
 )
 
 // Dart Integration Commands
-var dartIntegrateCommands = []string{
-	"dart analyze lib",
-	"dart fix lib --dry-run",
-	"dart fix lib --apply",
-	"dart format lib",
-	"dart info",
-	"dart pub deps",
-	"dart pub upgrade"}
+var dartIntegrateCommands = DartCommands{
+	integrate: []string{
+		"dart analyze lib",
+		"dart fix lib --dry-run",
+		"dart fix lib --apply",
+		"dart format lib",
+		"dart info",
+		"dart pub deps",
+		"dart pub upgrade"},
+}

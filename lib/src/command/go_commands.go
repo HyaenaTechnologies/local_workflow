@@ -13,45 +13,70 @@ var (
 	goBuildFlag    = goCommand.String(
 		"build",
 		"",
-		"Build Package: --build Path: <String>")
+		"Build Package: --build Path: <String>",
+	)
 	goDocFlag = goCommand.Bool(
 		"doc",
 		false,
-		"Document Package: --doc <Bool>")
+		"Document Package: --doc <Bool>",
+	)
 	goIntegrationFlag = goCommand.Bool(
 		"integration",
 		false,
-		"Continuous Integration: --integration <Bool>")
+		"Continuous Integration: --integration <Bool>",
+	)
 	goTestFlag = goCommand.String(
 		"test",
 		"./test",
-		"Run Test: --test Path: <String>")
+		"Run Test: --test Path: <String>",
+	)
 )
 
 // Go Command Strings
 var (
-	goDarwinAMD64Build  = "GOOS=darwin GOARCH=amd64 go build -o"
-	goDarwinARM64Build  = "GOOS=darwin GOARCH=arm64 go build -o"
-	goDocument          = "go doc"
-	goIntegration       = strings.Join(goIntegrateCommands, " && ")
-	goLinuxAMD64Buid    = "GOOS=linux GOARCH=amd64 go build -o"
-	goLinuxARM64Buid    = "GOOS=linux GOARCH=arm64 go build -o"
-	goRunTest           = "go test -v"
-	goWindowsAMD64Build = "GOOS=windows GOARCH=amd64 go build -o"
-	goWindowsARM64Build = "GOOS=windows GOARCH=arm64 go build -o"
+	goDarwinAMD64Build = GoCommands{
+		darwinAMD64: "GOOS=darwin GOARCH=amd64 go build -o",
+	}
+	goDarwinARM64Build = GoCommands{
+		darwinARM64: "GOOS=darwin GOARCH=arm64 go build -o",
+	}
+	goDocument = GoCommands{
+		document: "go doc",
+	}
+	goIntegration = strings.Join(
+		goIntegrateCommands.integrate,
+		" && ",
+	)
+	goLinuxAMD64Buid = GoCommands{
+		linuxAMD64: "GOOS=linux GOARCH=amd64 go build -o",
+	}
+	goLinuxARM64Buid = GoCommands{
+		linuxARM64: "GOOS=linux GOARCH=arm64 go build -o",
+	}
+	goRunTest = GoCommands{
+		test: "go test -v",
+	}
+	goWindowsAMD64Build = GoCommands{
+		windowsAMD64: "GOOS=windows GOARCH=amd64 go build -o",
+	}
+	goWindowsARM64Build = GoCommands{
+		windowsARM64: "GOOS=windows GOARCH=arm64 go build -o",
+	}
 )
 
 // Go Integration Commands
-var goIntegrateCommands = []string{
-	"go env",
-	"go fix ./lib",
-	"go fmt ./lib",
-	"go list",
-	"go list -m",
-	"go mod download",
-	"go mod graph",
-	"go mod verify",
-	"go version",
-	"go vet ./lib",
-	"go work sync",
-	"go work use ./"}
+var goIntegrateCommands = GoCommands{
+	integrate: []string{
+		"go env",
+		"go fix ./lib",
+		"go fmt ./lib",
+		"go list",
+		"go list -m",
+		"go mod download",
+		"go mod graph",
+		"go mod verify",
+		"go version",
+		"go vet ./lib",
+		"go work sync",
+		"go work use ./"},
+}

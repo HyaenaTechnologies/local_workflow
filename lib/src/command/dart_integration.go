@@ -6,11 +6,19 @@ import (
 	"os/exec"
 )
 
+type DartCommands struct {
+	build     string
+	document  string
+	integrate []string
+	test      string
+}
+
 // Compile Package
-func DartCompile() {
+func (compileBuild DartCommands) DartCompile() {
 	var dartCompile, dartCompileError = exec.Command(
-		dartCompileBuild,
-		*dartCompileFlag).Output()
+		compileBuild.build,
+		*dartCompileFlag,
+	).Output()
 	if dartCompileError != nil {
 		log.Fatal(dartCompileError)
 	}
@@ -18,9 +26,10 @@ func DartCompile() {
 }
 
 // Document Package
-func DartDoc() {
+func (documentation DartCommands) DartDoc() {
 	var dartDoc, dartDocError = exec.Command(
-		dartDocument).Output()
+		documentation.document,
+	).Output()
 	if dartDocError != nil {
 		log.Fatal(dartDocError)
 	}
@@ -30,22 +39,23 @@ func DartDoc() {
 // Dart Command Flag Execution
 func DartFlagExecute() {
 	if *dartCompileFlag != "/bin/dart_application" {
-		DartCompile()
+		dartCompileBuild.DartCompile()
 	}
 	if *dartIntegrationFlag == true {
 		DartIntegration()
 	}
 	if *dartDocFlag == true {
-		DartDoc()
+		dartDocument.DartDoc()
 	}
 	if *dartTestFlag != "." {
-		DartTest()
+		dartRunTest.DartTest()
 	}
 }
 
 func DartIntegration() {
 	var dartIntegrate, dartIntegrateError = exec.Command(
-		dartIntegration).Output()
+		dartIntegration,
+	).Output()
 	if dartIntegrateError != nil {
 		log.Fatal(dartIntegrateError)
 	}
@@ -53,10 +63,11 @@ func DartIntegration() {
 }
 
 // Run Test
-func DartTest() {
+func (runTest DartCommands) DartTest() {
 	var dartTest, dartTestError = exec.Command(
-		dartRunTest,
-		*dartTestFlag).Output()
+		runTest.test,
+		*dartTestFlag,
+	).Output()
 	if dartTestError != nil {
 		log.Fatal(dartTestError)
 	}

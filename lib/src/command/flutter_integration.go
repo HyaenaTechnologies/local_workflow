@@ -6,11 +6,20 @@ import (
 	"os/exec"
 )
 
+type FlutterCommands struct {
+	apk       string
+	integrate []string
+	linux     string
+	test      string
+	web       string
+}
+
 // Build Package APK
-func FlutterBuildAPK() {
+func (apkBuild FlutterCommands) FlutterBuildAPK() {
 	var flutterAPK, flutterAPKError = exec.Command(
-		flutterAPKBuild,
-		*flutterBuildFlag).Output()
+		apkBuild.apk,
+		*flutterBuildFlag,
+	).Output()
 	if flutterAPKError != nil {
 		log.Fatal(flutterAPKError)
 	}
@@ -18,10 +27,11 @@ func FlutterBuildAPK() {
 }
 
 // Build Package Linux
-func FlutterBuildLinux() {
+func (linuxBuild FlutterCommands) FlutterBuildLinux() {
 	var flutterLinux, flutterLinuxError = exec.Command(
-		flutterLinuxBuild,
-		*flutterBuildFlag).Output()
+		linuxBuild.linux,
+		*flutterBuildFlag,
+	).Output()
 	if flutterLinuxError != nil {
 		log.Fatal(flutterLinuxError)
 	}
@@ -29,10 +39,11 @@ func FlutterBuildLinux() {
 }
 
 // Build Package Web
-func FlutterBuildWeb() {
+func (webBuild FlutterCommands) FlutterBuildWeb() {
 	var flutterWeb, flutterWebError = exec.Command(
-		flutterWebBuid,
-		*flutterBuildFlag).Output()
+		webBuild.web,
+		*flutterBuildFlag,
+	).Output()
 	if flutterWebError != nil {
 		log.Fatal(flutterWebError)
 	}
@@ -42,24 +53,25 @@ func FlutterBuildWeb() {
 // Flutter Command Flag Execution
 func FlutterFlagExecute() {
 	if *flutterBuildFlag != "/bin/flutter_application" {
-		FlutterBuildAPK()
-		FlutterBuildLinux()
-		FlutterBuildWeb()
+		flutterAPKBuild.FlutterBuildAPK()
+		flutterLinuxBuild.FlutterBuildLinux()
+		flutterWebBuid.FlutterBuildWeb()
 	}
 	if *flutterIntegrationFlag == true {
 		FlutterIntegration()
 	}
 	if *flutterDocFlag == true {
-		DartDoc()
+		dartDocument.DartDoc()
 	}
 	if *flutterTestFlag != "." {
-		FlutterTest()
+		flutterRunTest.FlutterTest()
 	}
 }
 
 func FlutterIntegration() {
 	var flutterIntegrate, flutterIntegrateError = exec.Command(
-		flutterIntegration).Output()
+		flutterIntegration,
+	).Output()
 	if flutterIntegrateError != nil {
 		log.Fatal(flutterIntegrateError)
 	}
@@ -67,10 +79,11 @@ func FlutterIntegration() {
 }
 
 // Run Test
-func FlutterTest() {
+func (runTest FlutterCommands) FlutterTest() {
 	var flutterTest, flutterTestError = exec.Command(
-		flutterRunTest,
-		*flutterTestFlag).Output()
+		runTest.test,
+		*flutterTestFlag,
+	).Output()
 	if flutterTestError != nil {
 		log.Fatal(flutterTestError)
 	}

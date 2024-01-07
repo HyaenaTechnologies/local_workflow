@@ -6,11 +6,24 @@ import (
 	"os/exec"
 )
 
+type GoCommands struct {
+	darwinAMD64  string
+	darwinARM64  string
+	document     string
+	integrate    []string
+	linuxAMD64   string
+	linuxARM64   string
+	test         string
+	windowsAMD64 string
+	windowsARM64 string
+}
+
 // Build Package Darwin AMD64
-func GoBuildDarwinAMD64() {
+func (darwinAMD64Build GoCommands) GoBuildDarwinAMD64() {
 	var goDarwinAMD64, goDarwinAMD64Error = exec.Command(
-		goDarwinAMD64Build,
-		*goBuildFlag).Output()
+		darwinAMD64Build.darwinAMD64,
+		*goBuildFlag,
+	).Output()
 	if goDarwinAMD64Error != nil {
 		log.Fatal(goDarwinAMD64Error)
 	}
@@ -18,10 +31,11 @@ func GoBuildDarwinAMD64() {
 }
 
 // Build Package Darwin ARM64
-func GoBuildDarwinARM64() {
+func (darwinARM64Build GoCommands) GoBuildDarwinARM64() {
 	var goDarwinARM64, goDarwinARM64Error = exec.Command(
-		goDarwinARM64Build,
-		*goBuildFlag).Output()
+		darwinARM64Build.darwinARM64,
+		*goBuildFlag,
+	).Output()
 	if goDarwinARM64Error != nil {
 		log.Fatal(goDarwinARM64Error)
 	}
@@ -29,10 +43,11 @@ func GoBuildDarwinARM64() {
 }
 
 // Build Package Linux AMD64
-func GoBuildLinuxAMD64() {
+func (linuxAMD64Build GoCommands) GoBuildLinuxAMD64() {
 	var goLinuxAMD64, goLinuxAMD64Error = exec.Command(
-		goLinuxAMD64Buid,
-		*goBuildFlag).Output()
+		linuxAMD64Build.linuxAMD64,
+		*goBuildFlag,
+	).Output()
 	if goLinuxAMD64Error != nil {
 		log.Fatal(goLinuxAMD64Error)
 	}
@@ -40,10 +55,11 @@ func GoBuildLinuxAMD64() {
 }
 
 // Build Package Linux ARM64
-func GoBuildLinuxARM64() {
+func (linuxARM64Build GoCommands) GoBuildLinuxARM64() {
 	var goLinuxARM64, goLinuxARM64Error = exec.Command(
-		goLinuxARM64Buid,
-		*goBuildFlag).Output()
+		linuxARM64Build.linuxARM64,
+		*goBuildFlag,
+	).Output()
 	if goLinuxARM64Error != nil {
 		log.Fatal(goLinuxARM64Error)
 	}
@@ -51,10 +67,11 @@ func GoBuildLinuxARM64() {
 }
 
 // Build Package Windows AMD64
-func GoBuildWindowsAMD64() {
+func (windowsAMD64Build GoCommands) GoBuildWindowsAMD64() {
 	var goWindowsAMD64, goWindowsAMD64Error = exec.Command(
-		goWindowsAMD64Build,
-		*goBuildFlag).Output()
+		windowsAMD64Build.windowsAMD64,
+		*goBuildFlag,
+	).Output()
 	if goWindowsAMD64Error != nil {
 		log.Fatal(goWindowsAMD64Error)
 	}
@@ -62,10 +79,11 @@ func GoBuildWindowsAMD64() {
 }
 
 // Build Package Windows ARM64
-func GoBuildWindowsARM64() {
+func (windowsARM64Build GoCommands) GoBuildWindowsARM64() {
 	var goWindowsARM64, goWindowsARM64Error = exec.Command(
-		goWindowsARM64Build,
-		*goBuildFlag).Output()
+		windowsARM64Build.windowsARM64,
+		*goBuildFlag,
+	).Output()
 	if goWindowsARM64Error != nil {
 		log.Fatal(goWindowsARM64Error)
 	}
@@ -73,9 +91,10 @@ func GoBuildWindowsARM64() {
 }
 
 // Document Package
-func GoDoc() {
+func (documentation GoCommands) GoDoc() {
 	var goDoc, goDocError = exec.Command(
-		goDocument).Output()
+		documentation.document,
+	).Output()
 	if goDocError != nil {
 		log.Fatal(goDocError)
 	}
@@ -85,27 +104,28 @@ func GoDoc() {
 // Go Command Flag Execution
 func GoFlagExecute() {
 	if *goBuildFlag != "" {
-		GoBuildDarwinAMD64()
-		GoBuildDarwinARM64()
-		GoBuildLinuxAMD64()
-		GoBuildLinuxARM64()
-		GoBuildWindowsAMD64()
-		GoBuildWindowsARM64()
+		goDarwinAMD64Build.GoBuildDarwinAMD64()
+		goDarwinARM64Build.GoBuildDarwinARM64()
+		goLinuxAMD64Buid.GoBuildLinuxAMD64()
+		goLinuxARM64Buid.GoBuildLinuxARM64()
+		goWindowsAMD64Build.GoBuildWindowsAMD64()
+		goWindowsARM64Build.GoBuildWindowsARM64()
 	}
 	if *goIntegrationFlag == true {
 		GoIntegration()
 	}
 	if *goDocFlag == true {
-		GoDoc()
+		goDocument.GoDoc()
 	}
 	if *goTestFlag != "./test" {
-		GoTest()
+		goRunTest.GoTest()
 	}
 }
 
 func GoIntegration() {
 	var goIntegrate, goIntegrateError = exec.Command(
-		goIntegration).Output()
+		goIntegration,
+	).Output()
 	if goIntegrateError != nil {
 		log.Fatal(goIntegrateError)
 	}
@@ -113,10 +133,11 @@ func GoIntegration() {
 }
 
 // Run Test
-func GoTest() {
+func (runTest GoCommands) GoTest() {
 	var goTest, goTestError = exec.Command(
-		goRunTest,
-		*goTestFlag).Output()
+		runTest.test,
+		*goTestFlag,
+	).Output()
 	if goTestError != nil {
 		log.Fatal(goTestError)
 	}
