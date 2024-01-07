@@ -3,7 +3,6 @@ package command
 import (
 	"flag"
 	"os"
-	"strings"
 )
 
 // Dart Commands and Flags
@@ -31,32 +30,3 @@ var (
 		"Run Test: --test Path: <String>",
 	)
 )
-
-// Dart Command Strings
-var (
-	dartCompileBuild = DartCommands{
-		build: "dart compile exe lib/main.dart --output",
-	}
-	dartDocument = DartCommands{
-		document: "dart doc .",
-	}
-	dartRunTest = DartCommands{
-		test: "dart test",
-	}
-	dartIntegration = strings.Join(
-		dartIntegrateCommands.integrate,
-		" && ",
-	)
-)
-
-// Dart Integration Commands
-var dartIntegrateCommands = DartCommands{
-	integrate: []string{
-		"dart analyze lib",
-		"dart fix lib --dry-run",
-		"dart fix lib --apply",
-		"dart format lib",
-		"dart info",
-		"dart pub deps",
-		"dart pub upgrade"},
-}

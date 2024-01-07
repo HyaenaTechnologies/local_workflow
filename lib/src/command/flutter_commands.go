@@ -3,7 +3,6 @@ package command
 import (
 	"flag"
 	"os"
-	"strings"
 )
 
 // Flutter Commands and Flags
@@ -31,36 +30,3 @@ var (
 		"Run Test: --test Path: <String>",
 	)
 )
-
-// Flutter Command Strings
-var (
-	flutterAPKBuild = FlutterCommands{
-		apk: "flutter build apk lib/main.dart",
-	}
-	flutterIntegration = strings.Join(
-		flutterIntegrateCommands.integrate,
-		" && ",
-	)
-	flutterLinuxBuild = FlutterCommands{
-		linux: "flutter build linux lib/main.dart",
-	}
-	flutterRunTest = FlutterCommands{
-		test: "flutter test",
-	}
-	flutterWebBuid = FlutterCommands{
-		web: "flutter build web lib/main.dart",
-	}
-)
-
-// Flutter Integration Commands
-var flutterIntegrateCommands = FlutterCommands{
-	integrate: []string{
-		"flutter analyze lib",
-		"flutter doctor",
-		"dart fix lib --dry-run",
-		"dart fix lib --apply",
-		"dart format lib",
-		"dart info",
-		"flutter pub deps",
-		"flutter pub upgrade"},
-}

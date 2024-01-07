@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os/exec"
+	"strings"
 )
 
 type DartCommands struct {
@@ -11,6 +12,35 @@ type DartCommands struct {
 	document  string
 	integrate []string
 	test      string
+}
+
+// Dart Command Strings
+var (
+	dartCompileBuild = DartCommands{
+		build: "dart compile exe lib/main.dart --output",
+	}
+	dartDocument = DartCommands{
+		document: "dart doc .",
+	}
+	dartRunTest = DartCommands{
+		test: "dart test",
+	}
+	dartIntegration = strings.Join(
+		dartIntegrateCommands.integrate,
+		" && ",
+	)
+)
+
+// Dart Integration Commands
+var dartIntegrateCommands = DartCommands{
+	integrate: []string{
+		"dart analyze lib",
+		"dart fix lib --dry-run",
+		"dart fix lib --apply",
+		"dart format lib",
+		"dart info",
+		"dart pub deps",
+		"dart pub upgrade"},
 }
 
 // Compile Package
