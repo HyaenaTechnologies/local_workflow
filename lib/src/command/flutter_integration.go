@@ -21,7 +21,7 @@ var (
 		apk: "flutter build apk lib/main.dart",
 	}
 	flutterIntegration = strings.Join(
-		flutterIntegrateCommands.integrate,
+		flutterIntegrate.integrate,
 		" && ",
 	)
 	flutterLinuxBuild = FlutterCommands{
@@ -36,7 +36,7 @@ var (
 )
 
 // Flutter Integration Commands
-var flutterIntegrateCommands = FlutterCommands{
+var flutterIntegrate = FlutterCommands{
 	integrate: []string{
 		"flutter analyze lib",
 		"flutter doctor",
@@ -49,7 +49,7 @@ var flutterIntegrateCommands = FlutterCommands{
 }
 
 // Build Package APK
-func (apkBuild FlutterCommands) FlutterBuildAPK() {
+func (apkBuild FlutterCommands) FlutterAPK() {
 	var flutterAPK, flutterAPKError = exec.Command(
 		apkBuild.apk,
 		*flutterBuildFlag,
@@ -61,7 +61,7 @@ func (apkBuild FlutterCommands) FlutterBuildAPK() {
 }
 
 // Build Package Linux
-func (linuxBuild FlutterCommands) FlutterBuildLinux() {
+func (linuxBuild FlutterCommands) FlutterLinux() {
 	var flutterLinux, flutterLinuxError = exec.Command(
 		linuxBuild.linux,
 		*flutterBuildFlag,
@@ -73,7 +73,7 @@ func (linuxBuild FlutterCommands) FlutterBuildLinux() {
 }
 
 // Build Package Web
-func (webBuild FlutterCommands) FlutterBuildWeb() {
+func (webBuild FlutterCommands) FlutterWeb() {
 	var flutterWeb, flutterWebError = exec.Command(
 		webBuild.web,
 		*flutterBuildFlag,
@@ -87,9 +87,9 @@ func (webBuild FlutterCommands) FlutterBuildWeb() {
 // Flutter Command Flag Execution
 func FlutterFlagExecute() {
 	if *flutterBuildFlag != "/bin/flutter_application" {
-		flutterAPKBuild.FlutterBuildAPK()
-		flutterLinuxBuild.FlutterBuildLinux()
-		flutterWebBuid.FlutterBuildWeb()
+		flutterAPKBuild.FlutterAPK()
+		flutterLinuxBuild.FlutterLinux()
+		flutterWebBuid.FlutterWeb()
 	}
 	if *flutterIntegrationFlag == true {
 		FlutterIntegration()

@@ -31,7 +31,7 @@ var (
 		document: "go doc",
 	}
 	goIntegration = strings.Join(
-		goIntegrateCommands.integrate,
+		goIntegrate.integrate,
 		" && ",
 	)
 	goLinuxAMD64Buid = GoCommands{
@@ -52,7 +52,7 @@ var (
 )
 
 // Go Integration Commands
-var goIntegrateCommands = GoCommands{
+var goIntegrate = GoCommands{
 	integrate: []string{
 		"go env",
 		"go fix ./lib",
@@ -69,7 +69,7 @@ var goIntegrateCommands = GoCommands{
 }
 
 // Build Package Darwin AMD64
-func (darwinAMD64Build GoCommands) GoBuildDarwinAMD64() {
+func (darwinAMD64Build GoCommands) GoDarwinAMD64() {
 	var goDarwinAMD64, goDarwinAMD64Error = exec.Command(
 		darwinAMD64Build.darwinAMD64,
 		*goBuildFlag,
@@ -81,7 +81,7 @@ func (darwinAMD64Build GoCommands) GoBuildDarwinAMD64() {
 }
 
 // Build Package Darwin ARM64
-func (darwinARM64Build GoCommands) GoBuildDarwinARM64() {
+func (darwinARM64Build GoCommands) GoDarwinARM64() {
 	var goDarwinARM64, goDarwinARM64Error = exec.Command(
 		darwinARM64Build.darwinARM64,
 		*goBuildFlag,
@@ -93,7 +93,7 @@ func (darwinARM64Build GoCommands) GoBuildDarwinARM64() {
 }
 
 // Build Package Linux AMD64
-func (linuxAMD64Build GoCommands) GoBuildLinuxAMD64() {
+func (linuxAMD64Build GoCommands) GoLinuxAMD64() {
 	var goLinuxAMD64, goLinuxAMD64Error = exec.Command(
 		linuxAMD64Build.linuxAMD64,
 		*goBuildFlag,
@@ -105,7 +105,7 @@ func (linuxAMD64Build GoCommands) GoBuildLinuxAMD64() {
 }
 
 // Build Package Linux ARM64
-func (linuxARM64Build GoCommands) GoBuildLinuxARM64() {
+func (linuxARM64Build GoCommands) GoLinuxARM64() {
 	var goLinuxARM64, goLinuxARM64Error = exec.Command(
 		linuxARM64Build.linuxARM64,
 		*goBuildFlag,
@@ -117,7 +117,7 @@ func (linuxARM64Build GoCommands) GoBuildLinuxARM64() {
 }
 
 // Build Package Windows AMD64
-func (windowsAMD64Build GoCommands) GoBuildWindowsAMD64() {
+func (windowsAMD64Build GoCommands) GoWindowsAMD64() {
 	var goWindowsAMD64, goWindowsAMD64Error = exec.Command(
 		windowsAMD64Build.windowsAMD64,
 		*goBuildFlag,
@@ -129,7 +129,7 @@ func (windowsAMD64Build GoCommands) GoBuildWindowsAMD64() {
 }
 
 // Build Package Windows ARM64
-func (windowsARM64Build GoCommands) GoBuildWindowsARM64() {
+func (windowsARM64Build GoCommands) GoWindowsARM64() {
 	var goWindowsARM64, goWindowsARM64Error = exec.Command(
 		windowsARM64Build.windowsARM64,
 		*goBuildFlag,
@@ -154,12 +154,12 @@ func (documentation GoCommands) GoDoc() {
 // Go Command Flag Execution
 func GoFlagExecute() {
 	if *goBuildFlag != "" {
-		goDarwinAMD64Build.GoBuildDarwinAMD64()
-		goDarwinARM64Build.GoBuildDarwinARM64()
-		goLinuxAMD64Buid.GoBuildLinuxAMD64()
-		goLinuxARM64Buid.GoBuildLinuxARM64()
-		goWindowsAMD64Build.GoBuildWindowsAMD64()
-		goWindowsARM64Build.GoBuildWindowsARM64()
+		goDarwinAMD64Build.GoDarwinAMD64()
+		goDarwinARM64Build.GoDarwinARM64()
+		goLinuxAMD64Buid.GoLinuxAMD64()
+		goLinuxARM64Buid.GoLinuxARM64()
+		goWindowsAMD64Build.GoWindowsAMD64()
+		goWindowsARM64Build.GoWindowsARM64()
 	}
 	if *goIntegrationFlag == true {
 		GoIntegration()

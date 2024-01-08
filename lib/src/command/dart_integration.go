@@ -8,7 +8,7 @@ import (
 )
 
 type DartCommands struct {
-	build     string
+	compile   string
 	document  string
 	integrate []string
 	test      string
@@ -17,7 +17,7 @@ type DartCommands struct {
 // Dart Command Strings
 var (
 	dartCompileBuild = DartCommands{
-		build: "dart compile exe lib/main.dart --output",
+		compile: "dart compile exe lib/main.dart --output",
 	}
 	dartDocument = DartCommands{
 		document: "dart doc .",
@@ -26,13 +26,13 @@ var (
 		test: "dart test",
 	}
 	dartIntegration = strings.Join(
-		dartIntegrateCommands.integrate,
+		dartIntegrate.integrate,
 		" && ",
 	)
 )
 
 // Dart Integration Commands
-var dartIntegrateCommands = DartCommands{
+var dartIntegrate = DartCommands{
 	integrate: []string{
 		"dart analyze lib",
 		"dart fix lib --dry-run",
@@ -46,7 +46,7 @@ var dartIntegrateCommands = DartCommands{
 // Compile Package
 func (compileBuild DartCommands) DartCompile() {
 	var dartCompile, dartCompileError = exec.Command(
-		compileBuild.build,
+		compileBuild.compile,
 		*dartCompileFlag,
 	).Output()
 	if dartCompileError != nil {
