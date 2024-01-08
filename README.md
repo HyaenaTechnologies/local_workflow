@@ -23,6 +23,8 @@ Local Workflow is an Open Source Local Workflow Tool
 - [Visual Studio Code][VSCode]
 
 ```shell
+git clone 
+
 go build
 ```
 
